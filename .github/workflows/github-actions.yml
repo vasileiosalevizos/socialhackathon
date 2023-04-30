@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
     - uses: actions/checkout@v2
 
     - name: Set up Python
@@ -18,6 +19,10 @@ jobs:
         python-version: 3.9  # Change this to the Python version you're using
 
     - name: Install Python dependencies
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+        TWILIO: ${{ secrets.TWILIO }}
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
