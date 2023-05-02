@@ -1,5 +1,8 @@
 # Social hackathon
 
+[![Update requirements.txt and package.json](https://github.com/vasileiosalevizos/socialhackathon/actions/workflows/github-actions.yml/badge.svg)](https://github.com/vasileiosalevizos/socialhackathon/actions/workflows/github-actions.yml)
+[![python](https://github.com/vasileiosalevizos/socialhackathon/actions/workflows/python.yml/badge.svg)](https://github.com/vasileiosalevizos/socialhackathon/actions/workflows/python.yml)
+
 _Descriptoin_
 
 <details>
