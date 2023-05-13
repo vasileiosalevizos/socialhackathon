@@ -5,25 +5,26 @@ module ecoevent::ecoevent{
     use sui::vec_set::{Self, VecSet};
     use std::string::{Self, String};
     use sui::transfer;
+    use sui::hex;
 
     // Structs
     struct UserInfo has key, store {
         id: UID,
-        name: String,
+        name: vector<u8>,
         username: String,
-        password: String,
-        email: String,
-        mobile: String
+        password: vector<u8>,
+        email: vector<u8>,
+        mobile: vector<u8>
     }
     
     struct EcoEvent has key, store {
         id: UID,
-        creator: ID,
+        creator: address,
         title: String,
         description: String,
-        longtitude: String,
-        latitude: String,
-        votes: VecSet<ID>
+        longtitude: vector<u8>,
+        latitude: vector<u8>,
+        votes: VecSet<Vote>
     }
 
     struct UserRepository has key {
@@ -34,6 +35,10 @@ module ecoevent::ecoevent{
     struct EcoEventRepository has key {
         id: UID,
         events: VecMap<ID, EcoEvent>
+    }
+
+    struct Vote has copy, store, drop {
+        voter: address
     }
 
     
@@ -82,11 +87,11 @@ module ecoevent::ecoevent{
         ){
             let new_user = UserInfo {
                 id: object::new(ctx),
-                name: string::utf8(full_name),
+                name: hex::encode(full_name),
                 username: string::utf8(user_name),
-                password: string::utf8(pass_word),
-                email: string::utf8(email_address),
-                mobile: string::utf8(mobile_phone)
+                password: hex::encode(pass_word),
+                email: hex::encode(email_address),
+                mobile: hex::encode(mobile_phone)
             };
 
             let users = &mut repository.users;
@@ -98,7 +103,6 @@ module ecoevent::ecoevent{
     }
 
     public fun create_event(
-        creator: &UserInfo,
         event_repo: &mut EcoEventRepository,
         title: vector<u8>,
         description: vector<u8>,
@@ -108,11 +112,11 @@ module ecoevent::ecoevent{
     ){
         let new_event = EcoEvent {
             id: object::new(ctx),
-            creator: *object::uid_as_inner(&creator.id),
+            creator: tx_context::sender(ctx),
             title: string::utf8(title),
             description: string::utf8(description),
-            longtitude: string::utf8(longtitude),
-            latitude: string::utf8(latitude),
+            longtitude: hex::encode(longtitude),
+            latitude: hex::encode(latitude),
             votes: vec_set::empty()
         };
         vec_map::insert(
@@ -124,14 +128,13 @@ module ecoevent::ecoevent{
 
 
     public fun vote_event(
-        user_id: &ID,
-        event_id: &ID,
-        user_repo: &UserRepository,
+        event_id: &EcoEvent,
         event_repo: &mut EcoEventRepository,
-        _ctx: &mut TxContext
+        ctx: &mut TxContext
     ){
-        let event = vec_map::get_mut(&mut event_repo.events, event_id);
+        let event = vec_map::get_mut(&mut event_repo.events, object::uid_as_inner(&event_id.id));
 
-        vec_set::insert(&mut event.votes, *user_id);
+        let voter_address = tx_context::sender(ctx);
+        vec_set::insert(&mut event.votes, Vote{voter: voter_address});
     }
 }
