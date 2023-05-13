@@ -5,7 +5,7 @@ module ecoevent::ecoevent{
     use sui::vec_set::{Self, VecSet};
     use std::string::{Self, String};
     use sui::transfer;
-    use sui::hex;
+    use std::hash;
 
     // Structs
     struct UserInfo has key, store {
@@ -87,11 +87,11 @@ module ecoevent::ecoevent{
         ){
             let new_user = UserInfo {
                 id: object::new(ctx),
-                name: hex::encode(full_name),
+                name: hash::sha2_256(full_name),
                 username: string::utf8(user_name),
-                password: hex::encode(pass_word),
-                email: hex::encode(email_address),
-                mobile: hex::encode(mobile_phone)
+                password: hash::sha2_256(pass_word),
+                email: hash::sha2_256(email_address),
+                mobile: hash::sha2_256(mobile_phone)
             };
 
             let users = &mut repository.users;
@@ -115,8 +115,8 @@ module ecoevent::ecoevent{
             creator: tx_context::sender(ctx),
             title: string::utf8(title),
             description: string::utf8(description),
-            longtitude: hex::encode(longtitude),
-            latitude: hex::encode(latitude),
+            longtitude: hash::sha2_256(longtitude),
+            latitude: hash::sha2_256(latitude),
             votes: vec_set::empty()
         };
         vec_map::insert(
