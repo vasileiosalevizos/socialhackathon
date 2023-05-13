@@ -2,19 +2,19 @@ module ecoevent::ecoevent{
     use sui::object::{Self, UID, ID};
     use sui::tx_context::{Self, TxContext};
     use sui::vec_map::{Self, VecMap};
-    use sui::vec_set::{Self, VecSet};
     use std::string::{Self, String};
     use sui::transfer;
     use std::hash;
+    use std::vector;
 
     // Structs
     struct UserInfo has key, store {
         id: UID,
-        name: vector<u8>,
+        name: String,
         username: String,
-        password: vector<u8>,
-        email: vector<u8>,
-        mobile: vector<u8>
+        password: String,
+        email: String,
+        mobile: String
     }
     
     struct EcoEvent has key, store {
@@ -22,9 +22,11 @@ module ecoevent::ecoevent{
         creator: address,
         title: String,
         description: String,
-        longtitude: vector<u8>,
-        latitude: vector<u8>,
-        votes: VecSet<Vote>
+        from_date: String,
+        to_date: String,
+        longtitude: String,
+        latitude: String,
+        votes: vector<Vote>
     }
 
     struct UserRepository has key {
@@ -87,11 +89,11 @@ module ecoevent::ecoevent{
         ){
             let new_user = UserInfo {
                 id: object::new(ctx),
-                name: hash::sha2_256(full_name),
+                name: string::utf8(hash::sha2_256(full_name)),
                 username: string::utf8(user_name),
-                password: hash::sha2_256(pass_word),
-                email: hash::sha2_256(email_address),
-                mobile: hash::sha2_256(mobile_phone)
+                password: string::utf8(hash::sha2_256(pass_word)),
+                email: string::utf8(hash::sha2_256(email_address)),
+                mobile: string::utf8(hash::sha2_256(mobile_phone))
             };
 
             let users = &mut repository.users;
@@ -106,6 +108,8 @@ module ecoevent::ecoevent{
         event_repo: &mut EcoEventRepository,
         title: vector<u8>,
         description: vector<u8>,
+        from: vector<u8>,
+        to: vector<u8>,
         longtitude: vector<u8>,
         latitude: vector<u8>,
         ctx: &mut TxContext
@@ -115,9 +119,11 @@ module ecoevent::ecoevent{
             creator: tx_context::sender(ctx),
             title: string::utf8(title),
             description: string::utf8(description),
-            longtitude: hash::sha2_256(longtitude),
-            latitude: hash::sha2_256(latitude),
-            votes: vec_set::empty()
+            from_date: string::utf8(from),
+            to_date: string::utf8(to),
+            longtitude: string::utf8(longtitude),
+            latitude: string::utf8(latitude),
+            votes: vector::empty()
         };
         vec_map::insert(
             &mut event_repo.events,
@@ -135,6 +141,8 @@ module ecoevent::ecoevent{
         let event = vec_map::get_mut(&mut event_repo.events, object::uid_as_inner(&event_id.id));
 
         let voter_address = tx_context::sender(ctx);
-        vec_set::insert(&mut event.votes, Vote{voter: voter_address});
+        vector::insert(&mut event.votes,Vote{voter: voter_address}, 0);
     }
+
+    
 }
