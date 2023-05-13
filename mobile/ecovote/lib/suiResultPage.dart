@@ -8,8 +8,6 @@ import 'search_bar.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'html.dart';
-import 'QRScreen.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
