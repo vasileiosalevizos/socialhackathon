@@ -13,7 +13,7 @@ class SearchBar extends StatelessWidget {
           enabled: true,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Color.fromARGB(255, 153, 252, 120),
+            fillColor: Color.fromARGB(161, 153, 252, 120),
             labelText: "    Search",
             labelStyle: TextStyle(color: Colors.grey),
             border: OutlineInputBorder(
