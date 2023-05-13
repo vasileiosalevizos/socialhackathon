@@ -10,6 +10,9 @@ import 'package:latlong2/latlong.dart';
 import 'html.dart';
 import 'QRScreen.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'suiResultPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -99,6 +102,50 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<MyMapState> _mapKey = GlobalKey<MyMapState>();
   int _selectedIndex = 0;
 
+//SUI
+  void initState() {
+    super.initState();
+    sendJsonRpcRequest();
+  }
+
+  Future<String> sendJsonRpcRequest() async {
+    var url = Uri.parse(
+        'https://fullnode.devnet.sui.io:443'); // Replace with your endpoint
+
+    var headers = {"Content-type": "application/json"};
+
+    var requestBody = jsonEncode({
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "sui_multiGetObjects",
+      "params": [
+        ["0xffdc5de38876bc0f9d32f295bfd0855af756404fc613c419117e5a2dcd61dbd1"],
+        {
+          "showType": true,
+          "showOwner": true,
+          "showPreviousTransaction": true,
+          "showDisplay": false,
+          "showContent": true,
+          "showBcs": false,
+          "showStorageRebate": true
+        }
+      ]
+    });
+
+    var response = await http.post(url, headers: headers, body: requestBody);
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+      return 'Request failed with status: ${response.statusCode}.';
+    }
+  }
+
+  //END SUI
+
+  //BottomNavigation
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -110,9 +157,19 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.pushNamed(
               context, '/html'); // Navigate to the new HTML screen
           break;
-        // Other cases...
+        case 2:
+          _fetchAndNavigate();
+          break;
       }
     });
+  }
+
+  void _fetchAndNavigate() async {
+    String result = await sendJsonRpcRequest();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ResultPage(result: result)),
+    );
   }
 
   void _showBottomDrawer() {
