@@ -37,6 +37,7 @@ dependencies:
   permission_handler: ^10.2.0
   google_maps_flutter: ^2.2.6
   flutter_html: ^2.2.1
+  qr_flutter: ^4.0.0
 
 
   # The following adds the Cupertino Icons font to your application.

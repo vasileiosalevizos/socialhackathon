@@ -8,6 +8,8 @@ import 'search_bar.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'html.dart';
+import 'QRScreen.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => Login(),
         '/home': (context) => HomeScreen(),
         '/html': (context) => HtmlScreen(),
+        '/qr': (context) => QRScreen(), // Add the new QR screen route
         // Add routes for your other screens
       },
     );
@@ -219,6 +222,14 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: Icon(Icons.my_location),
             heroTag: "btn2", // Add unique heroTag to avoid conflicts
+          ),
+          SizedBox(height: 10), // Add spacing between the buttons
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/qr'); // Navigate to the QR screen
+            },
+            child: Icon(Icons.qr_code), // Use an icon for the QR code
+            heroTag: "btn3", // Add unique heroTag to avoid conflicts
           ),
         ],
       ),
