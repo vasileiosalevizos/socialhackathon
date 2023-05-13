@@ -13,6 +13,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'suiResultPage.dart';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
@@ -26,14 +27,59 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: '/', // Set the initial route
+      initialRoute: '/splash', // Set the initial route
       routes: {
+        '/splash': (context) => SplashScreen(),
         '/': (context) => Login(),
         '/home': (context) => HomeScreen(),
         '/html': (context) => HtmlScreen(),
         '/qr': (context) => QRScreen(), // Add the new QR screen route
         // Add routes for your other screens
       },
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  startTimer() {
+    var _duration = new Duration(seconds: 2);
+    return Timer(_duration, navigationPage);
+  }
+
+  void navigationPage() {
+    Navigator.of(context).pushReplacementNamed('/');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset('/images/logo.jpg'), // Replace with your own logo
+            SizedBox(height: 24),
+            Text(
+              'EcoVote',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
