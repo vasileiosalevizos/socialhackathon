@@ -7,6 +7,13 @@ _Το EcoBridge είναι μια εφαρμογή που ενώνει επιχ�
 
 ![image](https://github.com/vasileiosalevizos/socialhackathon/assets/88648326/f14bcdd1-530a-4ea4-8b4e-1b1d81660c65)
 
+Blockchain
+![image](https://github.com/vasileiosalevizos/socialhackathon/assets/88648326/178c62d2-c4b3-4de8-8571-338abc4226a4)
+![image](https://github.com/vasileiosalevizos/socialhackathon/assets/88648326/6e330286-0bfd-4e86-a76f-c4f52f6b4880)
+![image](https://github.com/vasileiosalevizos/socialhackathon/assets/88648326/309641e9-31f1-4f8c-9520-0ad2802ff5b5)
+![image](https://github.com/vasileiosalevizos/socialhackathon/assets/88648326/f1856329-236b-435f-bcf7-3fa85b43a954)
+![image](https://github.com/vasileiosalevizos/socialhackathon/assets/88648326/2239f2cc-c475-492c-a726-e5ff058917bd)
+
 
 <details>
   <summary>Table of Contents</summary>
