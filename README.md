@@ -3,7 +3,10 @@
 [![Update requirements.txt and package.json](https://github.com/vasileiosalevizos/socialhackathon/actions/workflows/github-actions.yml/badge.svg)](https://github.com/vasileiosalevizos/socialhackathon/actions/workflows/github-actions.yml)
 [![python](https://github.com/vasileiosalevizos/socialhackathon/actions/workflows/python.yml/badge.svg)](https://github.com/vasileiosalevizos/socialhackathon/actions/workflows/python.yml)
 
-_Descriptoin_
+_Το EcoBridge είναι μια εφαρμογή που ενώνει επιχειρήσεις, κοινωνικούς και περιβαλλοντικούς φορείς, και άτομα μέσω βιώσιμων εκδηλώσεων και δράσεων, αυξάνοντας την περιβαλλοντική συνείδηση με προσαρμοσμένες προτάσεις εκδηλώσεων. Οι χρήστες κινητοποιούνται μέσω ενός συστήματος που βασίζεται σε σημεία, ενώ η τεχνολογία blockchain και γεωγραφικής τοποθεσίας διασφαλίζουν ασφαλή, ακριβή παρακολούθηση συμμετοχής._
+
+![image](https://github.com/vasileiosalevizos/socialhackathon/assets/88648326/f14bcdd1-530a-4ea4-8b4e-1b1d81660c65)
+
 
 <details>
   <summary>Table of Contents</summary>
@@ -77,5 +80,16 @@ You can now view app in the browser ``http://localhost:3000``.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Team
+
+* Ilias Georgousis
+* Vasileios Alevizos
+* Nikitas Gerolimos
+* Mathaios Tasios
+* Antonis Messinis
+* Georgios Hobis
+* Dimitra Maliarou
+* Sotiria Karipidou
+* Alexis Stathopoulos
+* Christiana Gardikioti
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
